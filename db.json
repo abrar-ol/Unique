@@ -1,0 +1,28 @@
+{
+  "userList": [
+    {
+      "id": 1,
+      "name": "Abrar",
+      "email": "json-server",
+      "password": "typicode",
+      "date": "1994-11-08T21:00:00.000Z",
+      "bio": "Somthing ..."
+    },
+    {
+      "name": "Sara",
+      "email": "sara@hotmail.com",
+      "password": "Sara123",
+      "date": "2016-11-08T21:00:00.000Z",
+      "bio": "Newbie",
+      "id": 2
+    },
+    {
+      "name": "newBody",
+      "email": "hah@hah",
+      "password": "123Asd",
+      "date": "2022-02-18T21:00:00.000Z",
+      "bio": "fadfasd",
+      "id": 3
+    }
+  ]
+}

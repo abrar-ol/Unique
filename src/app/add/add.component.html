@@ -1,0 +1,29 @@
+<div class="card">
+  <form [formGroup]="addForm" (ngSubmit)="add(addForm.value)">
+    <h1 >Post Form</h1>
+   <mat-form-field appearance="fill">
+     <mat-label>Application URL</mat-label>
+     <input matInput  formControlName="address" required type="text" >
+   </mat-form-field>
+
+   <mat-form-field class="example-full-width" appearance="fill">
+     <mat-label>About the Application</mat-label>
+     <textarea matInput formControlName="desc"></textarea>
+   </mat-form-field>
+
+   <input  formControlName="image"
+           type="file"
+           accept=".gif,.jpeg,.jpg,.png"
+           (change)="onFileSelected($event)"
+           >
+
+   <img [src]="url" style="height: 200px;width: 200px;" *ngIf="isChange" >
+   <button style="margin-left: 8px;"
+           mat-raised-button
+           type="submit"
+           color="primary"
+           [disabled]="!addForm.valid">
+           Post
+          </button>
+  </form>
+</div>

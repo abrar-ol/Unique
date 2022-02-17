@@ -1,0 +1,12 @@
+
+<p *ngIf="isFetching">Loading ...</p>
+<mat-grid-list cols="3" rowHeight="100%" *ngIf="!isFetching">
+  <mat-grid-tile *ngFor="let c of contents; let i=index">
+    <app-a-content [content]="c" [index]="c.id" ></app-a-content>
+
+  </mat-grid-tile>
+</mat-grid-list>
+
+
+
+

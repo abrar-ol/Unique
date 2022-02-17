@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "unique-f6879": {
+      "hosting": {
+        "unique": [
+          "unique-f6879"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "unique-f6879"
+  }
+}

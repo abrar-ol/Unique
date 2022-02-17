@@ -1,0 +1,21 @@
+<mat-card class="example-card" style="cursor: pointer"  (click)="onClick(content)">
+  <mat-card-header>
+    <div mat-card-avatar class="example-header-image"></div>
+    <mat-card-title><!--{{content.userName}}--></mat-card-title>
+    <mat-card-subtitle><!--{{content.userDate|date:'dd/MM/yyyy'}}--></mat-card-subtitle>
+  </mat-card-header>
+  <img mat-card-image src={{content.imgURL}} alt={{content.address}}>
+  <mat-card-content>
+    <p>
+      {{content.address}}
+      {{content.desc}}
+
+    </p>
+  </mat-card-content>
+  <mat-card-actions>
+
+    <button mat-button>LIKE</button>
+    <button mat-button>SHARE</button>
+  </mat-card-actions>
+</mat-card>
+

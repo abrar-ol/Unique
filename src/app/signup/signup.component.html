@@ -1,0 +1,59 @@
+<h1 *ngIf="!isLoading" mat-dialog-title>Sign Up</h1>
+
+<div mat-dialog-content>
+
+<div *ngIf="error&&!isLoading" style="color: red;">
+  <p>{{error}}</p>
+</div>
+
+<div *ngIf="isLoading" style="text-align: center;">
+  <h1>Signing You UP ...</h1>
+  <app-spinner></app-spinner>
+</div>
+
+ <form [formGroup]="signupForm" *ngIf="!isLoading">
+  <mat-form-field appearance="fill">
+    <mat-label>Enter your Name</mat-label>
+    <input matInput placeholder="Ex: Ahmed" formControlName="name" >
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Enter your email</mat-label>
+    <input matInput placeholder="pat@example.com" formControlName="email" required>
+    <mat-error *ngIf="signupForm.controls['email'].invalid">{{getEmailErrorMessage()}}</mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Enter your password "at least 6 charecters"</mat-label>
+    <input matInput
+    [type]="hide ? 'password' : 'text'"
+    formControlName="password"
+    required
+    minlength="6">
+
+
+    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+      <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+    </button>
+
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Date Of Birth</mat-label>
+    <input matInput [matDatepicker]="picker" formControlName="date">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width" appearance="fill">
+    <mat-label>Tell Us more About You</mat-label>
+    <textarea matInput placeholder="Ex. links,favorites..." formControlName="bio"></textarea>
+  </mat-form-field>
+ </form>
+
+</div>
+
+<div mat-dialog-action [align]="'end'" *ngIf="!isLoading">
+  <button mat-raised-button color="warn" mat-dialog-close>Close</button>
+  <button style="margin-left: 8px;" mat-raised-button color="primary" (click)="signup()" [disabled]="!signupForm.valid">SignUp</button>
+</div>

@@ -1,0 +1,26 @@
+<mat-toolbar color="primary">
+  <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon" routerLink="/contents">
+    <mat-icon>code</mat-icon>
+  </button>
+  <span>UNIQUE</span>
+  <span class="example-spacer"></span>
+  <button mat-flat-button color="accent" (click)="openSignupDialog()" *ngIf="!isAuth">Sign Up</button>
+  <button mat-flat-button color="primary" (click)="openLoginDialog()" *ngIf="!isAuth">Login</button>
+
+  <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon" routerLink="/profile" style=" transform: scale(1.5);" *ngIf="isAuth">
+    <mat-icon>account_circle </mat-icon>
+  </button>
+<span *ngIf="isAuth"> &nbsp; &nbsp; | &nbsp; &nbsp;</span>
+  <button mat-flat-button color="warn" (click)="logout()" *ngIf="isAuth">Logout</button>
+
+</mat-toolbar>
+
+<router-outlet></router-outlet>
+
+<div class="example-button-container" >
+  <button mat-fab color="primary" aria-label="Example icon button with a delete icon" *ngIf="isAuth"  routerLink="/add">
+    <mat-icon>add</mat-icon>
+  </button>
+</div>
+
+
