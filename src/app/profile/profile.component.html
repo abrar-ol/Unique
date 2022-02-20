@@ -1,1 +1,21 @@
-<p>profile works!</p>
+
+
+
+<div *ngIf="error&&!isLoading" style="color: red;">
+  <p>{{error}}</p>
+</div>
+
+<div *ngIf="isLoading" style="text-align: center;">
+  <app-spinner></app-spinner>
+</div>
+<div class="center" *ngIf="!isLoading">
+<mat-card class="profileCard">
+
+    <p style="font-size: 500%;">{{user.name}}</p>
+
+    <img src={{user.imgURL}} alt="User's Profile Picture">
+
+
+</mat-card>
+</div>
+

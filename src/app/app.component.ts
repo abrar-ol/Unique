@@ -40,13 +40,15 @@ export class AppComponent implements OnInit,OnDestroy{
   openSignupDialog() {
    let dialogRef= this.dialog.open(SignupComponent, {width:"30%"});
    dialogRef.afterClosed().subscribe(res=>{
-    this.openLoginDialog();
+    console.log("Dialog Res afterClosed: ");
+    console.log(res);
   });
   }
   openLoginDialog(){
     let dialogRef= this.dialog.open(LoginComponent, {data:{name:'testName'},width:"30%"});
     dialogRef.afterClosed().subscribe(res=>{
-      console.log("Dialog Res: "+res);
+      console.log("Dialog Res afterClosed: ");
+      console.log(res);
     });
   }
 

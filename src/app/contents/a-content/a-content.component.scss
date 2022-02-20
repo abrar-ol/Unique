@@ -3,5 +3,24 @@
   background-size: cover;
 }
 .example-card {
-  max-width: 400px;
+  max-width: 300px;
+}
+mat-card {
+  object-position: center;
+  object-fit: cover;
+  width:300px; /* Here you can use wherever you want to specify the width and also the height of the <img>*/
+  height: fit-content;
+}
+
+mat-card img {
+  height: 300px;
+}
+
+
+::ng-deep mat-card-content p{
+  width: 300px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+
 }

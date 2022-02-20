@@ -1,3 +1,4 @@
+import { AuthService } from './../services/auth.service';
 import { AngularFireDatabase, AngularFireList } from '@angular/fire/compat/database';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { HttpClient } from '@angular/common/http';
@@ -25,7 +26,8 @@ export class AddComponent implements OnInit {
   isChange!: boolean;
 
   constructor(private formBuilder:FormBuilder,
-              private api:ApiService) { }
+              private api:ApiService,
+              private authService:AuthService) { }
 
   ngOnInit(): void {
 
@@ -66,14 +68,22 @@ export class AddComponent implements OnInit {
   }
 
   add(postData:Content){
-    postData.imgURL=this.url;
-        this.api.postContent(postData).subscribe(
-          res=>{
-            console.log(res);
-            this.resetForm();
-            alert("Your Application Published Successfully ^_^");
-          }
-        );
+    if(this.authService.user.value!=null){
+      postData.imgURL=this.url;
+      postData.userId=this.authService.user.value.id;
+          this.api.postContent(postData).subscribe(
+            res=>{
+              console.log(res);
+              this.resetForm();
+              alert("Your Application Published Successfully ^_^");
+            }
+          );
+    }
+    else{
+      alert("User is Null !!!!!");
+
+    }
+
 
   }
 

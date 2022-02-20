@@ -17,6 +17,9 @@ export class SignupComponent implements OnInit {
   hide = true;
   isLoading=false;
   error!:string;
+  isChange!: boolean;
+  selectedImage:File| null=null;
+  url=""; //!!
 
   constructor(private formBuilder:FormBuilder,
               private api:ApiService,
@@ -24,6 +27,8 @@ export class SignupComponent implements OnInit {
               private authService:AuthService) { }
 
   ngOnInit(): void {
+    this.isChange=false;
+
     this.signupForm=this.formBuilder.group({
       name:['',Validators.required],
      email:['',[Validators.required, Validators.email]],
@@ -33,9 +38,35 @@ export class SignupComponent implements OnInit {
       Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$') //this is for the letters (both uppercase and lowercase) and numbers validation
    ])],
    date:['',Validators.required],
-   bio:['',Validators.required]
+   bio:['',Validators.required],
+   image:['',Validators.required]
     });
   }
+
+  onFileSelected(event: any){
+    this.selectedImage=event.srcElement.files[0];
+    const fd = new FormData();
+
+    if(this.selectedImage){
+      var reader = new FileReader();
+      reader.readAsDataURL(this.selectedImage);
+      reader.onload=
+        (event:any)=>{
+          this.url=event.srcElement.result;
+        };
+      fd.append('image',<File>this.selectedImage,this.selectedImage.name);
+      this.isChange=true;
+
+     return fd;
+  }
+  else{
+    console.log("Null Image!!");
+    this.selectedImage=null;
+
+    return null;
+  }
+  }
+
 
   signup(){
     if(this.signupForm.valid){
@@ -45,9 +76,9 @@ export class SignupComponent implements OnInit {
       const name = this.signupForm.controls['name'].value;
       const dob = this.signupForm.controls['date'].value;
       const bio = this.signupForm.controls['bio'].value;
-
+      const imgURL = this.url;
       this.isLoading=true;
-      this.authService.signup(email,password,name,dob,bio).subscribe(
+      this.authService.signup(email,password,name,dob,bio,imgURL).subscribe(
         (res)=>{
           alert("Welcome "+this.signupForm.controls["name"].value+" ^-^");
           this.signupForm.reset();

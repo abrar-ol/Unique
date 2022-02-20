@@ -12,6 +12,7 @@
 </div>
 
  <form [formGroup]="signupForm" *ngIf="!isLoading">
+
   <mat-form-field appearance="fill">
     <mat-label>Enter your Name</mat-label>
     <input matInput placeholder="Ex: Ahmed" formControlName="name" >
@@ -49,6 +50,18 @@
     <mat-label>Tell Us more About You</mat-label>
     <textarea matInput placeholder="Ex. links,favorites..." formControlName="bio"></textarea>
   </mat-form-field>
+
+    <mat-label>Profile Picture: </mat-label>
+
+      <input  formControlName="image"
+      type="file"
+      accept=".gif,.jpeg,.jpg,.png"
+      (change)="onFileSelected($event)"
+      >
+
+    <img [src]="url" style="height: 100px;width: 100px;" *ngIf="isChange" >
+
+
  </form>
 
 </div>

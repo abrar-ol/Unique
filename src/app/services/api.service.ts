@@ -38,26 +38,5 @@ export class ApiService {
     return this.http.get<{[key:string]:Content}>('https://unique-f6879-default-rtdb.firebaseio.com/contents.json');
   }
 
-  getContentsById(index:string){
-    return this.http.get<Content>(
-      'https://unique-f6879-default-rtdb.firebaseio.com/contents.json'
-      )
-      .pipe(
-        catchError(errorRes=>{
-          return this.authService.handelError(errorRes);
-        })
-      ,tap(resData=>{
-        this.firebase.database.ref("contents").on('value', (snap) =>{
-          snap.forEach((childNodes) =>{
-            if(childNodes.key===index){
-              console.log("Content Found (:");
-              console.log(childNodes.val());
-              return childNodes.val();
-          }
-         });
-       });//on
-      })//tap
-      );//pipe
-  }
 
 }

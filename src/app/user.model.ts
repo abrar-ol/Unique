@@ -7,6 +7,7 @@ export class User{
               public password:string,
               public dob:string,
               public bio:string,
+              public imgURL:string,
               private _token:string,
               private _tokenExpirationDate:Date,
               public contents?:Content[]
