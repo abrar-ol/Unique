@@ -1,5 +1,6 @@
-<mat-card class="example-card" style="cursor: pointer"  (click)="onClick(content)">
+<mat-card class="example-card" style="cursor: pointer"  (click)="onClick(content)" *ngIf="!isLoading">
   <mat-card-header>
+    <div mat-card-avatar [style.background-image]="'url(' + user.imgURL + ')'" style="background-size:cover;"></div>
     <mat-card-title>{{user.name}}</mat-card-title>
     <mat-card-subtitle>{{user.dob|date:'dd/MM/yyyy'}}</mat-card-subtitle>
   </mat-card-header>
@@ -9,7 +10,7 @@
 
     <p>
       <strong>Address:</strong>  {{content.address}} <br>
-      <strong>Description:</strong>   {{content.desc}}
+      <strong>Description:</strong>   {{content.desc}} <br>
 
     </p>
   </mat-card-content>

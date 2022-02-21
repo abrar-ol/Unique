@@ -37,7 +37,6 @@ export class LoginComponent implements OnInit {
     this.isLoading=true;
     this.authservice.login(email,password).subscribe(
       (res)=>{
-        alert("Welcome Back"+res.email+" ^-^");
         this.loginForm.reset();
         this.dialogRef.close('save');
         this.isLoading=false;

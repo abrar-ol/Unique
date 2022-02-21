@@ -1,3 +1,4 @@
+import { Content } from './../content.model';
 import { User } from './../user.model';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
@@ -77,8 +78,9 @@ export class SignupComponent implements OnInit {
       const dob = this.signupForm.controls['date'].value;
       const bio = this.signupForm.controls['bio'].value;
       const imgURL = this.url;
+      const contents:Content[] = [];
       this.isLoading=true;
-      this.authService.signup(email,password,name,dob,bio,imgURL).subscribe(
+      this.authService.signup(email,password,name,dob,bio,imgURL,contents).subscribe(
         (res)=>{
           alert("Welcome "+this.signupForm.controls["name"].value+" ^-^");
           this.signupForm.reset();

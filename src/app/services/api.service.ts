@@ -20,6 +20,10 @@ export class ApiService {
     return this.http.get<User>('https://unique-f6879-default-rtdb.firebaseio.com/users.json');
   }
 
+  addContentToUser(content:Content){
+    return this.http.put<Content>('https://unique-f6879-default-rtdb.firebaseio.com/users.json',content);
+  }
+
 
   // getUserByEmail(email:string){
   //   return this.http.get<User>('https://unique-f6879-default-rtdb.firebaseio.com/users.json').pipe(

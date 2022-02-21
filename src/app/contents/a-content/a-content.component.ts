@@ -20,7 +20,7 @@ export class AContentComponent implements OnInit {
   @Input() content!:Content;
   @Input() index!:string|undefined;
   user!:User;
-
+  isLoading = false;
 
   constructor(private router:Router,private api:ApiService,private firebase: AngularFireDatabase,private authService:AuthService) { }
 
@@ -33,7 +33,7 @@ export class AContentComponent implements OnInit {
   //     (errorMessage)=>{console.log(errorMessage);}
   //     );
   //  });
-
+  this.isLoading=true;
   this.api.getUser()
   .pipe(
     catchError(errorRes=>{
@@ -45,7 +45,9 @@ export class AContentComponent implements OnInit {
         if(childNodes.val().id=== this.content.userId){
           console.log("User Found (:");
           console.log(childNodes.val());
-          return childNodes.val();
+          this.user= childNodes.val();
+  this.isLoading=false;
+
       }
      }
      );
@@ -53,11 +55,9 @@ export class AContentComponent implements OnInit {
    });//on
   })//tap
   )//pipe
-  .subscribe(res=>{
-    this.user=res;
-  });
+  .subscribe();
 
-    console.log("user Name: "+this.user.name);
+
 
 
   }

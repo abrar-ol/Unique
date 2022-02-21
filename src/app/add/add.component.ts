@@ -71,11 +71,17 @@ export class AddComponent implements OnInit {
     if(this.authService.user.value!=null){
       postData.imgURL=this.url;
       postData.userId=this.authService.user.value.id;
+      if(this.authService.user.value.contents.push(postData)){
+        console.log("content  hsa been added to the user's Array ^_^");
+      }
+
+
           this.api.postContent(postData).subscribe(
             res=>{
               console.log(res);
               this.resetForm();
-              alert("Your Application Published Successfully ^_^");
+
+              alert("Current posts: "+this.authService.user.value?.contents?.length);
             }
           );
     }

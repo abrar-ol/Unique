@@ -6,14 +6,41 @@
 </div>
 
 <div *ngIf="isLoading" style="text-align: center;">
+  <br> <h2>Fetching Data ...</h2><br>
   <app-spinner></app-spinner>
 </div>
+
 <div class="center" *ngIf="!isLoading">
 <mat-card class="profileCard">
-
-    <p style="font-size: 500%;">{{user.name}}</p>
-
+  <section style="float: left;">
     <img src={{user.imgURL}} alt="User's Profile Picture">
+
+      <p style="font-size: 350%;">{{user.name}}</p>
+      <p style="color: #673AB7;">{{user.dob|date}}</p>
+
+     </section>
+
+
+        <p style=" padding-left: 100px;  padding-right: 100px;  overflow-wrap: break-word;">{{user.bio}} </p>
+<!--
+        <mat-grid-list cols="1" rowHeight="100%"  >
+
+          <mat-grid-tile *ngFor="let c of user.contents; let i=index">
+            <app-a-content [content]="c" [index]="c.id" ></app-a-content>
+          </mat-grid-tile>
+        </mat-grid-list> -->
+
+        <!-- <ul *ngFor="let c of contents; let i=index">
+          <li>{{c.address}}</li>
+        </ul> -->
+
+
+        <strong>Contact: {{user.email}}</strong>
+
+        <mat-card-actions>
+          <button mat-button>Edit</button>
+        </mat-card-actions>
+
 
 
 </mat-card>

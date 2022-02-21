@@ -1,23 +1,24 @@
-@import url('https://fonts.googleapis.com/css2?family=Redressed&display=swap');
 
+@import url('https://fonts.googleapis.com/css2?family=Voltaire&display=swap');
+
+*{
+  font-family: 'Voltaire', sans-serif;
+}
 .center {
   text-align: center;
 }
 
 img {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  width: 20%;
+  width: 40%;
   border-radius: 50%;
-}
-*{
-  font-family: 'Redressed', cursive;
+  margin-bottom: 30px;
+  margin-top: -50px;
 }
 .profileCard{
   display: block;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 10%;
-  width: 80%;
+  margin-top: 5%;
+  padding-top: 5%;
+  width: 50%;
 }

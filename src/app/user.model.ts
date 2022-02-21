@@ -8,9 +8,10 @@ export class User{
               public dob:string,
               public bio:string,
               public imgURL:string,
+              public contents:Content[],
               private _token:string,
-              private _tokenExpirationDate:Date,
-              public contents?:Content[]
+              private _tokenExpirationDate:Date
+
               ){}
 
               get token(){

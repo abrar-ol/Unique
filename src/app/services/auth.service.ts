@@ -1,3 +1,4 @@
+import { Content } from './../content.model';
 import { ApiService } from './api.service';
 import { AppComponent } from './../app.component';
 import { Router } from '@angular/router';
@@ -5,7 +6,6 @@ import { User } from './../user.model';
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { Injectable, Injector } from "@angular/core";
 import { BehaviorSubject, catchError, map, Subject, tap, throwError } from "rxjs";
-import { Content } from '../content.model';
 import { ifError } from 'assert';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
 
@@ -46,7 +46,7 @@ export class AuthService{
       ,expirationDuration);
   }
 
-  signup(email:string,password:string,name:string,dob:string,bio:string,imgURL:string){
+  signup(email:string,password:string,name:string,dob:string,bio:string,imgURL:string,contents:Content[]){
     return this.http
     .post<AuthResponseData>(
       'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyDxFcSkk8n_n8D1NneTaIi5kuzEYE8DPug',
@@ -61,9 +61,10 @@ export class AuthService{
       }),
       tap(resData=>{
       this.handelAuth(resData.email,resData.localId,password,resData.idToken,
-        +resData.expiresIn,name,bio,imgURL,dob);
+        +resData.expiresIn,name,bio,imgURL,contents,dob);
         const expirationDate = new Date(new Date().getTime() +  +resData.expiresIn*1000);
-        const newUser = new User(resData.localId,name,email,password,dob,bio,imgURL,resData.idToken,expirationDate);
+
+        const newUser = new User(resData.localId,name,email,password,dob,bio,imgURL,contents,resData.idToken,expirationDate );
         const api = this.injector.get(ApiService);
         api.postUser(newUser).subscribe(
           res=>{
@@ -95,7 +96,7 @@ export class AuthService{
             console.log("Email Found (:");
 
             this.handelAuth(resData.email,resData.localId,password,resData.idToken,
-              +resData.expiresIn,childNodes.val().name,childNodes.val().bio,childNodes.val().imgURL,childNodes.val().dob);
+              +resData.expiresIn,childNodes.val().name,childNodes.val().bio,childNodes.val().imgURL,childNodes.val().contents,childNodes.val().dob);
               return;
         }
        });
@@ -106,12 +107,12 @@ export class AuthService{
 
 
   private handelAuth(email:string,userId:string,password:string,token:string,expiresIn:number,
-    name:string,bio:string,imgURL:string,dob:string) {
+    name:string,bio:string,imgURL:string,contents:Content[],dob:string) {
 
       const expirationDate = new Date(new Date().getTime() + expiresIn*1000);
 
       console.log("expirationDate: "+expirationDate,"expiresin: "+expiresIn);
-    const newUser = new User(userId,name,email,password,dob,bio,imgURL,token,expirationDate);
+    const newUser = new User(userId,name,email,password,dob,bio,imgURL,contents,token,expirationDate);
       console.log("New User From handelAuth "+newUser);
     this.user.next(newUser);
     this.autoLogout(expiresIn*1000);
@@ -125,19 +126,20 @@ export class AuthService{
         name:string;
         email:string;
         password:string;
-        dob:string,
-        bio:string,
-        imgURL:string,
+        dob:string;
+        bio:string;
+        imgURL:string;
+        contents:Content[];
         _token:string;
         _tokenExpirationDate:string;
-        content?:Content;
+
       }=JSON.parse(localStorage.getItem('userData')|| '{}')
 
       if(!userData){return;}
 
 
       const loadedUser=new User(userData.id,userData.name,userData.email,userData.password
-        ,userData.dob,userData.bio,userData.imgURL,userData._token,new Date(userData._tokenExpirationDate));
+        ,userData.dob,userData.bio,userData.imgURL,userData.contents,userData._token,new Date(userData._tokenExpirationDate));
 
         console.log("token Date:"+loadedUser.token);
 

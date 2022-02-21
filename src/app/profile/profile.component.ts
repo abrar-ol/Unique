@@ -1,9 +1,11 @@
+import { Content } from './../content.model';
 import { AuthService } from './../services/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../services/api.service';
 import { User } from '../user.model';
 import { catchError, tap } from 'rxjs';
 import { AngularFireDatabase } from '@angular/fire/compat/database';
+
 
 @Component({
   selector: 'app-profile',
@@ -17,9 +19,10 @@ export class ProfileComponent implements OnInit {
   user!:User;
   isLoading=false;
   error!:string;
+  contents!:Content[];
 
   ngOnInit(): void {
-
+console.log();
     if(this.authService.user.value!=null){
       this.isLoading=true;
       this.api.getUser()
@@ -34,6 +37,7 @@ export class ProfileComponent implements OnInit {
               console.log("User Found (:");
               console.log(childNodes.val());
               this.user= childNodes.val();
+
               this.isLoading=false;
           }
          }

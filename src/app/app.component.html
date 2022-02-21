@@ -21,7 +21,7 @@
 
 <router-outlet></router-outlet>
 
-<div class="example-button-container" >
+<div class="example-button-container" *ngIf="isAuth">
   <button mat-fab color="primary" aria-label="Example icon button with a delete icon" *ngIf="isAuth"  routerLink="/add">
     <mat-icon>add</mat-icon>
   </button>

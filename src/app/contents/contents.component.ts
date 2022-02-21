@@ -22,6 +22,7 @@ export class ContentsComponent implements OnInit {
   }
 
   getAllContents(){
+    this.isFetching=true;
     this.api
     .getContent()
     .pipe(
